@@ -5,24 +5,54 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace StudentRegister
+namespace StudentRegister 
 {
     /// <summary>
     /// A class representing a student
     /// </summary>
-    public class Student
+    public class Student : INotifyPropertyChanged
     {
         private List<CourseResult> courseHistory;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyOfPropertyChanged(string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        private string first;
+        private string last;
         /// <summary>
         /// Gets and sets the first name
         /// </summary>
-        public string First { get; set; }
+        public string First 
+        {
+            get { return first; }
+            set
+            {
+                if (first != value)
+                {
+                    first = value;
+                    NotifyOfPropertyChanged("First");
+                }
+            }
+        }
 
         /// <summary>
         /// Gets and sets the last name
         /// </summary>
-        public string Last { get; set; }
+        public string Last
+        {
+            get { return last; }
+            set
+            {
+                if (last != value)
+                {
+                    last = value;
+                    NotifyOfPropertyChanged("Last");
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the course history
@@ -91,5 +121,11 @@ namespace StudentRegister
             return $"{Last}, {First} ({GPA})";
         }
 
+        public void CourseComplete(string name, uint hours, Grade grade, string semester)
+        {
+            courseHistory.Add(new CourseResult(name, hours, grade, semester));
+            NotifyOfPropertyChanged("GPA");
+            NotifyOfPropertyChanged("CourseHistory");
+        }
     }
 }
