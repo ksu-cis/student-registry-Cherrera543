@@ -8,8 +8,36 @@
         Title="MainWindow" Height="450" Width="800">
 
     <DockPanel>
-        <ListBox DockPanel.Dock="Right" Name="StudentList"/>
-        <ContentControl Name="SelectedStudent" />
+        <ListBox DockPanel.Dock="Right" Name="StudentList">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="https://via.placeholder.com/75.png"/>
+                        <TextBlock Text="{Binding Path=Last}"/>
+                        <TextBlock Text=", "/>
+                        <TextBlock Text="{Binding Path=First}"/>
+                        <TextBlock Margin ="10,0,0,10" Foreground="Pink" Text="{Binding Path=GPA}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ContentControl Name="SelectedStudent">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="100" Text="First Name:"/>
+                            <TextBox Width="200" Text="{Binding Path=First}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="100" Text="Last Name:"/>
+                            <TextBox Width="200" Text="{Binding Path=Last}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+            
     </DockPanel>
     
 </Window>

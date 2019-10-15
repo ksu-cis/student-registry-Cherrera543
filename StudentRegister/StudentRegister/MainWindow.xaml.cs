@@ -29,6 +29,8 @@ namespace StudentRegister
             students = new List<Student>();
             students.Add(new Student("Jack", "Nimble"));
             students.Add(new Student("Mary", "Contrary"));
+            StudentList.ItemsSource = students;
+            SelectedStudent.Content = students;
         }
     }
 }
